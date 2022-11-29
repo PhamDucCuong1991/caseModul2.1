@@ -1,0 +1,12 @@
+MS1002
+hàng trung quốc
+23000
+hàng vứt đi
+MS1001
+hàng tàu
+21000
+hàng phế
+MS1003
+hàng mao trạch đông
+15000
+hàng sê cần hen
