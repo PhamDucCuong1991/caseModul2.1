@@ -23,20 +23,24 @@ public class Main {
 
             int choice;
             int count = 0;
+            String regexNumber = "[1-5]{1}", input;
             do {
-                try {
-                    choice = Integer.parseInt(scanner.nextLine());
+                input = scanner.nextLine();
+                if (input.matches(regexNumber) == true) {
+                    choice = Integer.parseInt(input);
                     break;
-                } catch (InputMismatchException | NumberFormatException e) {
-                    System.err.println("Phải nhập số!");
+                }
+                else  {
+                    System.err.println("Nhập sai, hãy nhập lại");
+                    System.out.println("Nhập từ 1 đến 5");
                     count++;
+                    if (count == 3) {
+                        System.out.println("Bạn đã nhập sai 3 lần, hệ thống tự động dừng.");
+                        System.exit(0);
+                    }
                 }
-                if (count == 3) {
-                    System.out.println("Bạn đã nhập sai 3 lần, hệ thống tự động dừng.");
-                    System.exit(0);
-                }
-            } while (true);
 
+            } while (true);
             switch (choice) {
                 case 1:
                     managerAcc.dangNhap();
@@ -68,10 +72,8 @@ public class Main {
         QuanLySanPham quanLySanPham = new QuanLySanPham();
         quanLySanPham.docTuFile();
         while (true) {
-            String id;
-            int choice;
-            int count = 0;
-            System.out.println("-------------MENU--------------");
+
+            System.out.println("------------MENU-----------");
             System.out.println("1. Tạo sản phẩm mới");
             System.out.println("2. Tìm kiếm sản phẩm");
             System.out.println("3. Hiển thị danh sách sản phẩm");
@@ -80,19 +82,27 @@ public class Main {
             System.out.println("6. Xóa sản phẩm");
             System.out.println("7. Trở về menu đăng nhập");
 
-            while (true) {
-                try {
-                    choice = Integer.parseInt(scanner.nextLine());
+            String id;
+            int choice;
+            int count = 0;
+            String regexNumber = "[1-7]{1}", input;
+            do {
+                input = scanner.nextLine();
+                if (input.matches(regexNumber)) {
+                    choice = Integer.parseInt(input);
                     break;
-                } catch (InputMismatchException | NumberFormatException e) {
-                    System.err.println("Phải nhập số!");
+                }
+                else  {
+                    System.err.println("Nhập sai, hãy nhập lại");
+                    System.out.println("Nhập từ 1 đến 7");
                     count++;
+                    if (count == 3) {
+                        System.out.println("Bạn đã nhập sai 3 lần, hệ thống tự động dừng.");
+                        System.exit(0);
+                    }
                 }
-                if (count == 3) {
-                    System.out.println("Bạn đã nhập sai 3 lần, hệ tống tự động đóng!");
-                    System.exit(0);
-                }
-            }
+
+            } while (true);
 
             switch (choice) {
                 case 1:
@@ -108,7 +118,7 @@ public class Main {
                             choice = Integer.parseInt(scanner.nextLine());
                             break;
                         } catch (InputMismatchException | NumberFormatException e) {
-                            System.err.println("Phải nhập số!");
+                            System.err.println("Có lỗi xảy ra, bạn phải chọn 1 hoặc 2");
                             count++;
                         }
                         if (count == 3) {
@@ -151,7 +161,7 @@ public class Main {
                             choice = Integer.parseInt(scanner.nextLine());
                             break;
                         } catch (InputMismatchException | NumberFormatException e) {
-                            System.err.println("Phải nhập số!");
+                            System.err.println("Có lỗi xảy ra, bạn phải chọn từ 1-3");
                             count++;
                         }
                         if (count == 3) {
@@ -192,7 +202,7 @@ public class Main {
                                 choice = Integer.parseInt(scanner.nextLine());
                                 break;
                             } catch (InputMismatchException | NumberFormatException e) {
-                                System.err.println("Phải nhập số!");
+                                System.err.println("Có lỗi xảy ra, bạn phải chọn 1 hoặc 2");
                                 count++;
                             }
                             if (count == 3) {

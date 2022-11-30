@@ -1,7 +1,5 @@
 package quanLySanPham;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.*;
 import java.util.*;
 

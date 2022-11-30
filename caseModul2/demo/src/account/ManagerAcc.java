@@ -40,19 +40,29 @@ public class ManagerAcc {
 
     public void dangki(Account account1) {
         danhSach.put(account1.getUsername(), account1);
+        xuatRaFile();
     }
 
 
     public Account taoTaiKhoan() {
 
-        Account account1 = new Account();
+        String regexPassword = "^[!@#$%^&*][A-Za-z1-9]{6,10}", password;
+
+        Account account1 = null;
         System.out.println("nhâp tài khoản");
         String username = scanner.nextLine();
 
         while (true) {
-            System.out.println("Nhập mật khẩu");
-            String password = scanner.nextLine();
 
+            System.out.println("Nhập mật khẩu");
+            while (true) {
+                System.out.println("Mật khẩu phải có 6-10 ký tự, ký tự đầu phải là ký tự đặc biệt (!@#$%^&*)");
+                password = scanner.nextLine();
+                if (!password.matches(regexPassword)) {
+                    System.out.println("hãy nhập đúng yêu cầu");
+                }
+                else break;
+            }
             System.out.println("Xác nhận lai mật khẩu");
             String password2 = scanner.nextLine();
 
@@ -61,18 +71,22 @@ public class ManagerAcc {
             } else {
                 if (danhSach.containsKey(username)) {
                     System.out.println("tài khoản đã tồn tại");
+                    break;
                 } else {
                     account1 = new Account(username, password);
                     System.out.println("Đăng ký thành công!");
-                    xuatRaFile();
                     break;
                 }
             }
         }
+
         return account1;
+
     }
 
     public void edit() {
+
+        String regexPassword = "^[!@#$%^&*][A-Za-z1-9]{6,10}", newPassword;
         int count = 0;
 
         while (true) {
@@ -91,8 +105,15 @@ public class ManagerAcc {
 
                     if (matKhauCu.equals(danhSach.get(taiKhoan).getPassword())) {
                         System.out.println("Nhập mật khẩu moi");
-                        String matKhauMoi = scanner.nextLine();
-                        danhSach.get(taiKhoan).setPassword(matKhauMoi);
+                        while (true) {
+                            System.out.println("Mật khẩu phải có 6-10 ký tự, ký tự đầu phải là ký tự đặc biệt (!@#$%^&*)");
+                            newPassword = scanner.nextLine();
+                            if (!newPassword.matches(regexPassword)) {
+                                System.out.println("hãy nhập đúng yêu cầu");
+                            }
+                            else break;
+                        }
+                        danhSach.get(taiKhoan).setPassword(newPassword);
                         System.out.println("Đổi mật khẩu thành công");
                         xuatRaFile();
                         return;
@@ -136,7 +157,7 @@ public class ManagerAcc {
                         System.exit(0);
                     }
                 }
-                System.out.println("Xin chào: "+ username + "! Bạn đã đăng nhập hệ thống thành công" );
+                System.out.println("Xin chào: " + username + "! Bạn đã đăng nhập hệ thống thành công");
                 Main.menuSanPham();
                 break;
             } else {
@@ -151,11 +172,10 @@ public class ManagerAcc {
     }
 
     public void layLaiMk(String taiKhoan) {
-    int count = 0;
+        int count = 0;
         if (!danhSach.containsKey(taiKhoan)) {
             System.out.println("Tài khoản không tồn tại");
         } else {
-
             System.out.println("Mật khẩu tài khoản này là: " + danhSach.get(taiKhoan).getPassword());
             System.out.println("Mời đăng nhập hệ thống");
             while (true) {
@@ -170,20 +190,18 @@ public class ManagerAcc {
                     if (!password.equals(danhSach.get(taiKhoan).getPassword())) {
                         System.err.println("Sai mật khẩu! Mời nhập lại \n");
                         count++;
-                       if (count==3) {
-                           System.out.println("Bạn đã nhập sai 3 lần, hệ thống tự động thoát");
-                           System.exit(0);
-                       }
-                    }else {
-                        System.out.println("Xin chào: "+ taiKhoan + "! Bạn đã đăng nhập hệ thống thành công" );
-                        Main.menuSanPham();
+                        if (count == 3) {
+                            System.out.println("Bạn đã nhập sai 3 lần, hệ thống tự động thoát");
+                            System.exit(0);
+                        }
+                    } else {
+                        System.out.println("Xin chào: " + taiKhoan + "! Bạn đã đăng nhập hệ thống thành công");
                         break;
                     }
-
                 }
-
             }
         }
+        Main.menuSanPham();
     }
 }
 
