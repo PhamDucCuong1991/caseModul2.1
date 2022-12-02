@@ -4,8 +4,17 @@ import java.io.*;
 import java.util.*;
 
 public class QuanLySanPham {
-    static Scanner scanner = new Scanner(System.in);
-    static List<SanPham> danhSachSanPham = new ArrayList<>();
+    Scanner scanner = new Scanner(System.in);
+    List<SanPham> danhSachSanPham = new ArrayList<>();
+    List<SanPham> gioHangUser = new ArrayList<>();
+    private static QuanLySanPham instance;
+
+    public static QuanLySanPham getInstance() {
+        if (instance==null) {
+            instance = new QuanLySanPham();
+        }
+        return instance;
+    }
 
     public SanPham taoSanPham() {
 
@@ -130,8 +139,8 @@ public class QuanLySanPham {
             System.out.println(timKiem(id));
             danhSachSanPham.remove(timKiem(id));
             System.out.println("Thao tác xóa thành công!");
+            xuatRaFile();
         }
-        xuatRaFile();
     }
 
     public void suaToanBoThongTin(SanPham sanPham) {
@@ -155,6 +164,7 @@ public class QuanLySanPham {
     }
 
     public void docTuFile() {
+        danhSachSanPham = new ArrayList<>();
         File layDanhSach = new File("danhSachSP.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(layDanhSach))) {
             while (true) {
@@ -187,13 +197,36 @@ public class QuanLySanPham {
         danhSachSanPham.sort(Comparator.comparing(SanPham::getTenSanPham));
     }
 
-    public SanPham timKiemTheoTenSP(String tenSanPham) {
+    public List<SanPham> timKiemTuongDoi(String spCanTim){
+        List<SanPham> danhSachTimKiem = new ArrayList<>();
+      for(SanPham sanPham : danhSachSanPham){
+          if (sanPham.getTenSanPham().toUpperCase().contains(spCanTim.toUpperCase())){
+              danhSachTimKiem.add(sanPham);
+          }
+      }
+      return danhSachTimKiem;
+    }
 
-        for (SanPham sanPham1 : danhSachSanPham) {
-            if (tenSanPham.equals(sanPham1.getTenSanPham())) {
-                return sanPham1;
-            }
+    public void chonMuaHang(){
+        System.out.println("Nhập mã sản phẩm cần mua");
+        String maSP = scanner.nextLine();
+        SanPham sanPham = timKiem(maSP);
+        if(sanPham == null){
+            System.out.println("Sản phẩm không tồn tại");
         }
-        return null;
+        else {
+            gioHangUser.add(sanPham);
+            System.out.println("Bạn đã thêm sản phẩm: " + sanPham.getTenSanPham() + " vào giỏ hàng");
+        }
+    }
+
+    public void showGioHang(){
+        double sum = 0;
+        for (SanPham sanPham : gioHangUser) {
+           sum += sanPham.getGiaSanPham();
+        }
+        System.out.println("Giỏ hàng của bạn có: "+ gioHangUser.size() + "món hàng");
+        System.out.println(gioHangUser);
+        System.out.println("Số tiền cần thanh toán là: "+ sum);
     }
 }

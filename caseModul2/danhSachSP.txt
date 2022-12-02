@@ -1,12 +1,24 @@
-MS1002
-hàng trung quốc
-23000
-hàng vứt đi
 MS1001
-hàng tàu
+dép Lào
 21000
-hàng phế
+hàng đi tạm
+MS1002
+giày nike
+27000
+hàng mặc được
 MS1003
-hàng mao trạch đông
-15000
-hàng sê cần hen
+dép Trung Quốc
+23000
+hàng fake
+MS1004
+dép tàu
+25000
+hàng vứt đi
+MS1005
+áo bà ba
+250000
+hàng việt nam
+MS1005
+áo bra
+200000
+hàng việt nam

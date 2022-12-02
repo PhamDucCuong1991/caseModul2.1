@@ -1,5 +1,7 @@
 package main;
 
+import account.Account;
+
 import java.util.Scanner;
 
 public class DemoRegex {
@@ -10,5 +12,6 @@ public class DemoRegex {
             input = scanner.nextLine();
             System.out.println(input.matches(rex));
         }
+
     }
 }

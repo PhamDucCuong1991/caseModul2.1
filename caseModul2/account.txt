@@ -1,4 +1,2 @@
-dcuong4
-!123456
-tuananh
-@123456
+admin
+1
