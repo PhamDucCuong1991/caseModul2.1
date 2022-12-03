@@ -85,6 +85,7 @@ public class ManagerAcc {
         String regexPassword = "^[!@#$%^&*][A-Za-z1-9]{5,10}", password;
 
         Account account;
+        int count = 0;
 
         System.out.println("nhâp tài khoản");
         String username = scanner.nextLine();
@@ -113,12 +114,10 @@ public class ManagerAcc {
 
                 if (!password2.equals(password)) {
                     System.out.println("Sai mật khẩu, vui lòng nhập lại \n");
-
                 } else {
                     System.out.println("Đăng ký thành công!");
-
                     System.out.println("Bạn có muốn bảo mật tài khoản của mình??");
-                    System.out.println("Ấn 'y' đồng ý, other: thoát ra ngoài ");
+                    System.out.println("Ấn 'y' đồng ý, other: Thoát ra ngoài ");
                     if (!scanner.nextLine().equals("y")) {
                         account = new Account(username, password);
                         danhSachBaoMat.add(account);
@@ -253,19 +252,28 @@ public class ManagerAcc {
 
             System.out.println("Nhập vào tài khoản");
             String username = scanner.nextLine();
-            System.out.println("nhập mật khẩu");
+            System.out.println("Nhập mật khẩu");
             String password = scanner.nextLine();
 
             Account account = timKiemBaoMat(username);
+            if (account == null) {
+                System.err.println("Tài khoản hoặc mật khẩu không đúng");
+                count++;
+                if (count == 3) {
+                    System.err.println("Bạn đã nhập sai 3 lần, hệ thống tự động dừng.");
+                    System.exit(0);
+                }
+                break;
+            }
 
             if (username.equals(account.getUsername())) {
 
                 while (!password.equals(account.getPassword())) {
                     count1++;
-                    System.out.println("sai mật khẩu, vui lòng nhập lại");
+                    System.err.println("sai mật khẩu, vui lòng nhập lại");
                     password = scanner.nextLine();
                     if (count1 == 3) {
-                        System.out.println("Bạn đã nhập sai 3 lần, hệ thống tự động đóng");
+                        System.err.println("Bạn đã nhập sai 3 lần, hệ thống tự động đóng");
                         System.exit(0);
                     }
                 }
@@ -311,7 +319,6 @@ public class ManagerAcc {
             System.out.println("Nhập email");
             String email = scanner.nextLine();
 
-
             if (mkc2.equals(accountLose.getMkcap2()) && sdt == accountLose.getSdt() && email.equals(accountLose.getEmail())) {
 
                 System.out.println("Mật khẩu tài khoản này là: " + accountLose.getPassword());
@@ -322,6 +329,11 @@ public class ManagerAcc {
 
                     if (!username.equals(taiKhoan)) {
                         System.out.println("Bạn phải nhập bằng tài khoản: " + taiKhoan);
+                        count++;
+                        if (count == 3) {
+                            System.err.println("Bạn quá lì, nghỉ chơi!");
+                            System.exit(0);
+                        }
                     } else {
                         System.out.println("nhập mật khẩu");
                         String password = scanner.nextLine();

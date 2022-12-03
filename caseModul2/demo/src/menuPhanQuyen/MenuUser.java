@@ -21,28 +21,29 @@ public class MenuUser {
             System.out.println("|    2. Tìm kiếm sản phẩm              |");
             System.out.println("|    3. Chọn mua hàng                  |");
             System.out.println("|    4. Giỏ hàng của tôi               |");
-            System.out.println("|    5. Đăng xuất, về menu đăng nhập   |");
+            System.out.println("|    5. Xóa SP khỏi giỏ hàng           |");
+            System.out.println("|    6. Đăng xuất, về menu đăng nhập   |");
             System.out.println("|______________________________________|");
 
-            String id ;
+            String id;
             int choice;
             int count = 0;
-            String regexNumber = "[1-5]{1}", input;
+            String regexNumber = "[1-6]{1}", input;
             do {
                 input = scanner.nextLine();
                 if (input.matches(regexNumber)) {
                     choice = Integer.parseInt(input);
                     break;
                 } else {
-                    System.err.println("Nhập sai, hãy nhập lại từ 1 đến 5");
+                    System.err.println("Nhập sai, hãy nhập lại từ 1 đến 6");
                     count++;
                     if (count == 3) {
-                        System.out.println("Bạn đã nhập sai 3 lần, hệ thống tự động trở về.");
+                        System.err.println("Bạn đã nhập sai 3 lần, hệ thống tự động trở về.");
                         return;
                     }
                 }
-
             } while (true);
+
             switch (choice) {
                 case 1 -> {
                     System.out.println("1. Sắp xếp theo giá từ thấp đến cao");
@@ -56,7 +57,7 @@ public class MenuUser {
                             System.err.println("Có lỗi xảy ra, bạn phải chọn từ 1-3");
                             count++;
                             if (count == 3) {
-                                System.err.println("Bạn đã nhập sai 3 lần, hệ tống tự động trở về!");
+                                System.err.println("Bạn đã nhập sai 3 lần, hệ thống tự động trở về!");
                                 return;
                             }
                         }
@@ -78,6 +79,11 @@ public class MenuUser {
                             break;
                         default:
                             System.out.println("Không có chức năng này");
+                            count++;
+                            if (count == 3) {
+                                System.err.println("Bạn đã nhập sai 3 lần, hệ thống tự động trở về.");
+                                return;
+                            }
                     }
                 }
 
@@ -93,7 +99,7 @@ public class MenuUser {
                             System.err.println("Có lỗi xảy ra, bạn phải chọn 1 hoặc 2");
                             count++;
                             if (count == 3) {
-                                System.err.println("Bạn đã nhập sai 3 lần, hệ tống tự động trở về!");
+                                System.err.println("Bạn đã nhập sai 3 lần, hệ thống tự động trở về!");
                                 return;
                             }
                         }
@@ -125,13 +131,14 @@ public class MenuUser {
 
                 case 3 -> quanLySanPham.chonMuaHang();
 
-                case 4 -> {
+                case 4 -> quanLySanPham.showGioHang();
 
-                   quanLySanPham.showGioHang();
-                }
-                case 5 -> {
+                case 5 -> quanLySanPham.xoaSanPhamGioHang();
+
+                case 6 -> {
                     return;
                 }
+
                 default -> System.out.println("Không có lựa chọn này!");
             }
         }

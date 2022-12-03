@@ -6,6 +6,16 @@ public class SanPham {
     private int giaSanPham;
     private String moTaSanPham;
 
+    private int soLuong = 1;
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
     public SanPham() {
     }
 

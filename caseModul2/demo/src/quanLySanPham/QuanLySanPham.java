@@ -215,18 +215,50 @@ public class QuanLySanPham {
             System.out.println("Sản phẩm không tồn tại");
         }
         else {
+            System.out.println("Nhập số lượng");
+            int soLuong;
+            do {
+                try {
+                    soLuong = Integer.parseInt(scanner.nextLine());
+                    if(soLuong<1){
+                        System.err.println("Bạn không thể đặt mua số lượng nhỏ hơn 1");
+                    }else {
+                        break;
+                    }
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.err.println("Phải nhập số!");
+                }
+            } while (true);
+            sanPham.setSoLuong(soLuong);
             gioHangUser.add(sanPham);
-            System.out.println("Bạn đã thêm sản phẩm: " + sanPham.getTenSanPham() + " vào giỏ hàng");
+            System.out.println("Bạn đã thêm sản phẩm: " + sanPham.getTenSanPham() + " Số lượng " + soLuong + " vào giỏ hàng");
         }
     }
 
     public void showGioHang(){
         double sum = 0;
         for (SanPham sanPham : gioHangUser) {
-           sum += sanPham.getGiaSanPham();
+           sum += sanPham.getGiaSanPham()*sanPham.getSoLuong();
         }
-        System.out.println("Giỏ hàng của bạn có: "+ gioHangUser.size() + "món hàng");
-        System.out.println(gioHangUser);
-        System.out.println("Số tiền cần thanh toán là: "+ sum);
+        System.out.println("Giỏ hàng của bạn có: "+ gioHangUser.size() + " loại mặt hàng");
+        for (SanPham sanPham : gioHangUser) {
+            System.out.println(sanPham);
+            System.out.println("Số lượng trong giỏ là: "+ sanPham.getSoLuong() + "\n");
+        }
+        System.out.println("Số tiền cần thanh toán là: " + sum);
+    }
+
+    public void xoaSanPhamGioHang() {
+        System.out.println("Nhập mã sản phẩm cần xóa");
+        String maSp = scanner.nextLine();
+        for (SanPham sanPham : gioHangUser) {
+            if(!maSp.equals(sanPham.getMaSanPham())){
+                System.err.println("Sản phẩm không tồn tại");
+            }else {
+                gioHangUser.remove(sanPham);
+                System.out.println("Thao tác xóa thành công!");
+                break;
+            }
+        }
     }
 }

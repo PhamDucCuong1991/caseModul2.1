@@ -2,9 +2,6 @@ package main;
 
 import account.Account;
 import account.ManagerAcc;
-import quanLySanPham.QuanLySanPham;
-
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -39,8 +36,8 @@ public class Main {
                         System.exit(0);
                     }
                 }
-
             } while (true);
+
             switch (choice) {
                 case 1:
                     System.out.println("Bạn là Admin hay người dùng?");
@@ -51,7 +48,7 @@ public class Main {
                     } else if (luaChonDangNhap.equals("2")) {
                         managerAcc.dangNhapUser();
                     } else {
-                        System.out.println("Không có lựa chọn này");
+                        System.out.println("Không có lựa chọn này, bạn phải nhập 1 hoặc 2");
                     }
                     break;
                 case 2:
@@ -69,6 +66,11 @@ public class Main {
                     return;
                 default:
                     System.out.println("Không có chức năng, hãy nhập lại");
+                    count++;
+                    if (count == 3) {
+                        System.out.println("Bạn đã nhập sai 3 lần, hệ thống tự động dừng.");
+                        System.exit(0);
+                    }
             }
         }
     }
